@@ -9,7 +9,7 @@ const User = require('../models/user');
 
 router.put('/signup', [
 body('email').trim().isEmail().withMessage('Please Enter a valid email').custom((value, { req }) => {
-    return User.findOne({email: 'test@clinic.com'}).then(userDoc => {
+    return User.findOne({where:{email: 'test@clinic.com'}}).then(userDoc => {
         if (userDoc) {
             return Promise.reject('E-mail adress already exist');
         }
@@ -21,5 +21,7 @@ body('password').trim().isLength({min: 3})
 ] ,
 authController.signup
 );
+
+router.post('/login', authController.login);
 
 module.exports = router;

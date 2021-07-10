@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator/check');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user')
 
@@ -28,7 +29,7 @@ exports.signup = (req, res, next) => {
       const username = "";
       const role = "dummy";
       const qualification = "A0";
-      const password = "12345";
+      const password = "1234";
 
       bcrypt
       .hash(password, 12)
@@ -40,7 +41,7 @@ exports.signup = (req, res, next) => {
               username: username,
               role: role,
               qualification: qualification,
-              password: password
+              password: hasspw
           });
           return user.save();
       })
@@ -55,3 +56,53 @@ exports.signup = (req, res, next) => {
       });
 
 };
+
+exports.login = (req, res, next) => {
+    // const email = req.body.email;
+    // const password = req.body.password;
+
+    const email = 'test@clinic.com';
+    const password = '1234';
+    let loadedUser;
+    User.findOne({where:{email: email}})
+      .then(user => {
+          if (!user) {
+              const error = new Error(' A user with this email could not be found.');
+              error.statusCode = 401;
+              throw error;
+          }
+          loadedUser = user;
+          return bcrypt.compare(password, loadedUser.password);
+      })
+      .then(isEqual => {
+          if (!isEqual) {
+              const error = new Error('Wrong password');
+              error.statusCode = 401;
+              console.log(isEqual);
+              console.log(password)
+              console.log (loadedUser.password);
+              throw error;
+              
+          }
+
+          const token = jwt.sign(
+              {
+                  email: loadedUser.email,
+                  userId: loadedUser.id.toString()
+              },
+              'somesupersecretsecret',
+              {
+                  expiresIn: '1h'
+              }
+          );
+          res.status(201).json({token: token, userId: loadedUser.id.toString()});
+          console.log(token);
+      })
+      .catch(err => {
+        if(!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    });
+
+}

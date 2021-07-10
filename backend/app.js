@@ -17,15 +17,20 @@ const errorsController = require('./controllers/errors');
 const sequelize = require('./util/database');
 
 const User = require('./models/user');
+const Patient = require('./models/patient');
+const Medecin = require('./models/medecin');
+const Exam = require('./models/exam');
+const Disease = require('./models/disease');
+const BasicExam = require('./models/basicExam');
 
 app.use('/clinic', homeRoutes);
 app.use('/admin', adminRoutes);
-app.use('/doctor', doctorRoutes);
+app.use('/clinic/doctor', doctorRoutes);
 app.use('/finance', financeRoutes);
-app.use('/labo', laboRoutes);
-app.use('/nurse', nurseRoutes);
-app.use('/pharmacy', pharRoutes);
-app.use('/reception', recepRoutes);
+app.use('/clinic/labo', laboRoutes);
+app.use('/clinic/nurse', nurseRoutes);
+app.use('/clinic/pharmacy', pharRoutes);
+app.use('/clinic/reception', recepRoutes);
 app.use('/auth', authRoutes);
 app.use(errorsController.getError);
 
@@ -38,7 +43,7 @@ app.use((error, req, res, next) => {
 
 sequelize
 .sync()
-.then(()=>{
+.then((res)=>{
     return User.findByPk(1);
 })
 .then((user) => {
