@@ -18,6 +18,10 @@ const medecin = sequelize.define('medecin', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    qty: {
+       type: Sequelize.STRING,
+       allowNull: true  
+    },
     type: {
         type: Sequelize.STRING,
         allowNull: true

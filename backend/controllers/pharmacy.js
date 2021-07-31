@@ -1,4 +1,8 @@
+
 const Medecin = require('../models/medecin');
+const Ordonance = require('../models/ordonance');
+const stockIn = require('../models/stockIn');
+const stockOut = require('../models/stockOut');
 
 
 exports.getPharIndex = (req, res, next) => {
@@ -96,3 +100,76 @@ exports.deleteMedecin = (req, res, next) =>{
         })
         .catch(err => console.log(err));
 };
+
+exports.getInventories = (req, res, next) => {
+    let totalIn = 0;
+    let totalOut = 0;
+    let totalQty = 0;
+      const medecins = Medecin.findAll();
+      medecins
+      .then(medecins => {
+          medecins.forEach(medecin => {
+              stockIn.sum('qty', { where: {medecinId : medecin.id}})
+              .then((total)=> totalIn = total).catch(err => console.log(err));
+              stockOut.sum('qty', { where: {medecinId : medecin.id}})
+              .then((total)=> totalOut = total).catch(err => console.log(err));
+              console.log(totalOut);
+              totalQty = medecin.openingStock + totalIn-totalOut;
+              medecin.qty = totalQty;
+          });
+        res.json({inventory: medecins});    
+      })
+      .catch(err => console.log(err));
+      
+      
+}
+exports.getBranchInventory = (req, res, next) => {
+    let totalIn = 0;
+    let totalOut = 0;
+    let totalQty = 0;
+    let branch = "KIGALI";
+    const medecins = Medecin.findAll();
+    medecins
+    .then(medecins => {
+        medecins.forEach(medecin => {
+            stockOut.sum('qty', { where: {medecinId : medecin.id, branchName: branch}})
+            .then((total)=> {totalIn = parseInt(total);console.log(totalIn);}).catch(err => console.log(err));
+           
+            console.log("<<<----------- total in ------------->>>>")
+            
+            Ordonance.sum('qty', { where: {medecinId : 1, branchName: branch}})
+            .then((total)=> {totalOut = parseInt(total); console.log(totalOut);} ).catch(err => console.log(err));
+            console.log("<<<----------- total out------------->>>>")
+            totalQty = medecin.openingStock + totalIn-totalOut;
+            medecin.qty = totalQty;
+        });
+      res.json({branch: medecins});    
+    })
+    .catch(err => console.log(err));
+}
+exports.postOrdonance = (req, res, next) => {
+    const qty = 1;
+    const price = 200;
+    const branchName = "KIGALI";
+    const medecin = 1;
+
+    const ordonance = new Ordonance({
+        qty: qty,
+        price: price,
+        branchName: branchName,
+        medecinId: medecin
+    });
+
+    ordonance.save()
+              .then((ordonance => {
+                res.status(200).json({ordonance: ordonance,message: "ordonance created successfull"});
+              }))
+              .catch(err => console.log(err));
+}
+exports.getOrdonance = (req, res, next) => {
+    Ordonance.findAll()
+              .then((ordonance) => {
+                  res.json({ordonance: ordonance});
+              })
+              .catch(err => console.log(err));
+}

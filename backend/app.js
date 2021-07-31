@@ -22,6 +22,15 @@ const Medecin = require('./models/medecin');
 const Exam = require('./models/exam');
 const Disease = require('./models/disease');
 const BasicExam = require('./models/basicExam');
+const Inventory = require('./models/inventory');
+const StockIn = require('./models/stockIn');
+const StockOut = require('./models/stockOut');
+const ordonance = require('./models/ordonance');
+const stockIn = require('./models/stockIn');
+const branch = require('./models/stockBranch');
+const medecin = require('./models/medecin');
+
+
 
 app.use('/clinic', homeRoutes);
 app.use('/admin', adminRoutes);
@@ -40,6 +49,14 @@ app.use((error, req, res, next) => {
     const message = error.data;
     res.status(status).json({message: message, data: data});
 });
+Medecin.hasMany(StockIn);
+stockIn.belongsTo(Medecin);
+
+Medecin.hasMany(StockOut);
+StockOut.belongsTo(StockIn);
+
+Medecin.hasMany(ordonance);
+ordonance.belongsTo(Medecin);
 
 sequelize
 .sync()
