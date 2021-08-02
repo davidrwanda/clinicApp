@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="htps://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     <!-- assets/ css -->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">  
+    <link rel="stylesheet" href="/fontawesome/css/all.css">
+    <!-- assets/ scripts-->
+    <script src="/fontawesome/js/all.js"></script>
+     <script src="/scripts/main.js"></script>
+    <!-- end of external link -->
+    <title>ClinicApp</title>
+</head>
+<body>
+<section class="container-fluid">
+  <nav class="top-nav row">
+     <div class="col-2 logo">
+       <img src="/images/logo.png" alt="">
+     </div>
+     <div class="col-10 main-nav">
+       <div class="row">
+         <div class="d-flex flex-row col-6">
+           <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+         </div>
+         <div class="d-flex flex-row-reverse col-6">
+          <a href="#" class="float-left"><i class="fas fa-sign-out-alt"></i> Logout</a>
+           <a href="#" class="float-left"><i class="far fa-bell"></i></a>
+           <a href="#" class="float-left"><i class="fas fa-envelope"></i></a>
+           
+         </div>
+       </div>
+     </div>
+  </nav>
+</section>
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+          <aside class="side-nav">
+            <ul class="nav-ul">
+              <li><a href="/"><i class="fas fa-clinic-medical"></i> Reception</a></li>
+              <li class="active"><a><i class="fas fa-user-nurse"></i> Nursing</a></li>
+              <li><a href="/doctor"><i class="fas fa-user-md"></i> Doctor</a></li>
+              <li><a href="#"><i class="fas fa-vials"></i> Laboratory</a></li>
+              <li><a href="#"><i class="fas fa-capsules"></i> Pharmacy</a></li>
+              <li><a href="#"><i class="fas fa-procedures"></i> Hospitalization</a></li>
+            </ul>
+          </aside>
+        </div>
+        <div class="col-8 content-body">
+          <div class="row second-top-nav">
+            <a href="#"><i class="fas fa-home"></i> Home <i class="fas fa-user-nurse"></i> Nurse</a>
+          </div>
+          <div class="row table-content">
+            <span class="form-group d-flex flex-row-reverse">
+                <button class="button submit-btn"><span class="span"><i class="fas fa-plus-square"></i></span>New</button>
+            </span>
+            <table class="table caption-top">
+              <caption><span>Medecin Stock</span></caption>
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Expired date</th>
+                  <th scope="col">Last Updated</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>20</td>
+                  <td>date</td>
+                  <td>date</td>
+                  <td>
+                    <div class="drop">
+                      <button class="dropbtn1"><i class="fas fa-list"></i></button>
+                      <div class="drop-content">
+                        <a href="/nurse/1"><i class="fas fa-vote-yea"></i> New</a>
+                        <a href="/pharma/1"><i class="fas fa-vote-yea"></i> View</a>
+                        <a href="#"><i class="fas fa-user-edit"></i> Edit</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>20</td>
+                  <td>date</td>
+                  <td>date</td>
+                  <td><i class="fas fa-list"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>20</td>
+                  <td>date</td>
+                  <td>date</td>
+                  <td><i class="fas fa-list"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-2">
+          <aside class="right-side">
+            <div class="right-card">
+              <div class="box-card">
+               <h1 class="box-card-h"><a href="#">Patient</a></h1>
+               <p class="box-card-p">20</p>
+              </div>
+              <div class="box-card">
+                <h1 class="box-card-h"><a href="#">Progress</a></h1>
+                <p class="box-card-p">20</p>
+              </div>
+              <div class="box-card">
+                <h1 class="box-card-h"><a href="#">Closed</a></h1>
+                <p class="box-card-p">20</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+    </div>
+   
+</section>
+<footer class="container-fluid" style="height: 100px;">
+    <div class="row">
+        <div class="col-12">
+            12
+        </div>
+    </div>
+</footer>
+</body>
+</html>
